@@ -1,3 +1,5 @@
+<?php
+   ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +24,7 @@
   background-color: #333333; 
   color: white; 
   border: 2px solid #333333;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size : 30px ;
 }
 .barbutton:hover {
@@ -47,9 +49,9 @@
   color : white;
   padding: 12px 16px;
   text-decoration: none;
-  font-family: "Lucida Console", "Courier New", monospace;
   display: block;
 }
+
 body{
   margin: 0;
   height: 100%;
@@ -73,7 +75,7 @@ body{
 }
 </style>
 <body>
-  <img src = "./image/bg.png" style = "position : fixed; z-index : -1 ; opacity : 40% ; width : 100% ; height : 100% ; top :0px;">
+<img id = "bgimg2" src = "./bgimage/ModernOrange.png" style = "position : fixed; z-index : -1 ; opacity : 40% ; width : 100% ; height : 100% ; top :0px;">
 </body>
 <script>
   function shop(){
@@ -81,6 +83,10 @@ body{
   }
   function mainmenu(){
     location.replace("mainmenu.php")
+  }
+
+  function custom(){
+    location.replace("custom.php")
   }
 </script>
 </html>
@@ -90,32 +96,79 @@ if($_SESSION["aras"] == null) {
   <div class="upbar">
   <img src="./image/icon.png" alt="My lovely Home" width="360" height="101">
   <div class="align">
-    <button type="button" class="barbutton" onclick = "shop()" >shop</button>
-    <button type="button" class="barbutton" onclick = "mainmenu()" >menu</button>
+    <button type="button" class="barbutton" onclick = "shop()">Kedai</button>
+    <button type="button" class="barbutton" onclick = "mainmenu()">Menu</button>
   <div class = "dropdown">
-      <button type="button" class="barbutton" >account</button>
+      <button type="button" class="barbutton" >Akaun</button>
         <div class = "dropdown-content">
-          <a href="signin.php">sign in</a>
-          <a href="register.php">register</a>
+          <a href="signin.php">log masuk</a>
+          <a href="register.php">daftar</a>
         </div>
     </div>
     </div>
     </div>';
-}else if ($_SESSION["aras"] == "pengguna" || $_SESSION["aras"] == "pekerja" ){
+}else if ($_SESSION["aras"] == "pengguna" || $_SESSION["aras"] == "admin" ){
   echo'
   <div class="upbar">
     <img src="./image/icon.png" alt="My lovely Home" width="360" height="101">
     <div class="align">
-      <button type="button" class="barbutton" onclick = "shop()" >shop</button>
-      <button type="button" class="barbutton" onclick = "mainmenu()" >main menu</button>
+      <button type="button" class="barbutton" onclick = "shop()" >Kedai</button>
+      <button type="button" class="barbutton" onclick = "mainmenu()" >Menu</button>
     <div class = "dropdown">
-  <button type="button" class="barbutton" >account</button>
+  <button type="button" class="barbutton" >Akaun</button>
     <div class = "dropdown-content">
-      <a href="profile.php">Profile</a>
-      <a href="signin.php">log out</a>
+      <a href="profile.php">Profil</a>
+      <a href="signin.php">log keluar</a>
     </div>
   </div>
   </div>
   </div>';
+  $kunci = $_SESSION["idpengguna"];
+if(isset($_POST["font"])){
+  $font = $_POST["font"];
+  $insert = "UPDATE pengguna SET font = '$font' WHERE idpengguna = '$kunci'";
+  $con ->query($insert);
+}
+if(isset($_POST["bg"])){
+  $bg = $_POST["bg"];
+  $bg = str_replace(" ","",$bg);
+  $insert = "UPDATE pengguna SET latar = '$bg' WHERE idpengguna = '$kunci'";
+  $con ->query($insert);
+}
+if(isset($_POST["opacity"])){
+  $opa = $_POST["opacity"];
+  $insert = "UPDATE pengguna SET keterlihatan = '$opa' WHERE idpengguna = '$kunci'";
+  $con ->query($insert);
+}
+$getbg = "SELECT * FROM pengguna WHERE idpengguna= '$kunci'";
+$result = $con -> query($getbg);
+$row = $result -> fetch_assoc();
+$font = $row['font'];
+$gotbg = $row['latar'];
+$opacity = $row['keterlihatan'];
+if($gotbg != null){
+  echo"
+  <script>
+  document.getElementById('bgimg2').src = './bgimage/' + '$gotbg' + '.png';
+  </script>";
+}
+if($font != null){
+  echo"
+  <script>
+  var cssStyle = document.createElement('style');
+  cssStyle.type = 'text/css';
+  var rules = document.createTextNode('*{font-family :' + '$font' + '}');
+  cssStyle.appendChild(rules);
+  document.getElementsByTagName('style')[0].appendChild(cssStyle);
+  </script>
+  ";
   }
+  if($opacity != null){
+    echo"
+    <script>
+    document.getElementById('bgimg2').style.opacity = '$opacity' + '%';
+    </script>";
+  }
+}
+  
 ?>

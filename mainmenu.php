@@ -20,13 +20,13 @@ require ('upbar.php');
   </div>
 
   <?php
-  if($_SESSION["aras"] == "pengguna" || $_SESSION["aras"] == "pekerja"){
+  if($_SESSION["aras"] == "pengguna" || $_SESSION["aras"] == "admin"){
     ?>
   <div class = "bg">
   <br><br><br>
-  <h1 class = "textes">Tambah profile picture</h1><br><br><br><br><br>
-  <li>Senang dan cepat</li>
-  <button class = "searchbutton" style = "position : absolute ; left : 500px ; top : 130px" onclick ="location.href = 'profile.php'">Profile</button>
+  <h1 class = "textes">Tambah Gambar Profil</h1><br><br><br><br><br>
+  <li>tukar kelihatan halaman anda</li>
+  <button class = "searchbutton" style = "position : absolute ; left : 500px ; top : 130px" onclick ="location.href = 'profile.php'">Profil</button>
   <img src = "./image/mainpage2.png"  object-fit = "contain" height = "250px" style=" position : absolute ;right : 200px ; top : 50px">
   </div>
   <?php
@@ -36,7 +36,7 @@ require ('upbar.php');
   <br><br><br>
   <h1 class = "textes">Cepatlah Buat Akaun</h1><br><br><br><br><br>
   <li>Pilihan Pengguna ✔</li>
-  <li>Profile Picture Unik ✔</li>
+  <li>Profil Picture Unik ✔</li>
   <li>Senang dan cepat ✔</li>
   <button class = "searchbutton" style = "position : absolute ; left : 500px ; top : 30px" onclick ="location.href = 'register.php'">Daftar</button>
   <button class = "searchbutton" style = "position : absolute ; left : 500px ; top : 170px" onclick ="location.href = 'signin.php'">Log Masuk</button>
@@ -52,14 +52,14 @@ require ('upbar.php');
     margin-left : 50px;
     float : left ; 
     color : white ; 
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   }
 
   li{
     margin-left : 50px;
     font-size : 25px;
     color : white ; 
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   }
   .bg{
     width : 100%;
@@ -75,7 +75,7 @@ require ('upbar.php');
   width : auto ;
   background-color: #333333; 
   color: white; 
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size : 30px ;
   text-align: center;
   margin-left : 50px;

@@ -1,6 +1,13 @@
 <?php
 require ('connect.php');
 $name = $con -> real_escape_string($_POST['name']);
+if(!isset($_SERVER['POST']['redirected']) && empty($name)){
+    echo"
+    <script>
+    history.go(-1);
+    </script>";
+    die();
+     }
 $password = $con -> real_escape_string($_POST['password']);
 $signe = "SELECT * FROM pengguna WHERE idpengguna = '$name' AND katalaluan = '$password'";
 $result = $con -> query($signe);
@@ -16,7 +23,4 @@ if ($result -> num_rows == 0){
     $_SESSION["namapengguna"] = $row['namapengguna'];
     $_SESSION["katalaluan"] = $row['katalaluan'];
     $_SESSION["aras"] = $row['aras'];
-    echo "<script>
-     window.location = 'mainmenu.php'
-     </script>";
 }

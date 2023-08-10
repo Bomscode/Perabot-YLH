@@ -2,7 +2,15 @@
 require('connect.php');
 require('upbar.php');
 require('print.php');
-echo'<div class = "block"></div>';
+if($_SESSION["aras"] != "admin"){
+  echo"
+  <script>
+  history.go(-1);
+  </script>";
+}
+echo'<div class = "block"></div>
+<div class="searchbar">Produk</div>';
+
 $forimage ="2"; 
    $search1 = "SELECT * FROM produk";
 $result = $con -> query($search1);
@@ -45,13 +53,13 @@ for($i = 1;$i <= $rowcount; $i++){
     .block {
   opacity : 0;
   width : 100% ;
-  height : 101px ;
+  height : 170px ;
 }
 table {
   border-collapse: collapse;
   width: 25%;
   height: 300px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   border : 5px solid #333333 ;
   float : left;
 }
@@ -69,5 +77,37 @@ th, td {
   padding: 8px;
   border : 1px solid black ;
   background-color: white;
+}
+
+
+.searchbutton {
+  transition-duration: 0.4s;
+  height :50px;
+  width : auto ;
+  background-color: #333333; 
+  color: white; 
+  
+  font-size : 15px ;
+  text-align: center;
+  border: 2px solid black;
+  -ms-transform: translate();
+}
+
+.searchbutton:hover {
+  color : #333333;
+  background-color : white;
+}
+.searchbar  {
+  color : white;
+  font-size : 30px;
+  text-align : center;
+  height:50px ;
+  width: 100%;
+  background-color: #333333;
+  position: fixed;
+  top : 101px;
+  border : 2px solid black ;
+  z-index: 0;  
+  
 }
 </style>

@@ -14,7 +14,7 @@ $_SESSION["aras"] = null;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
 }
 
 .vertical-center {
@@ -35,7 +35,7 @@ $_SESSION["aras"] = null;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
 }
 .button[type="submit"]:hover {
   background-color: white;
@@ -55,8 +55,8 @@ a:hover{
 <body>
 
 <form class = "vertical-center" action="check.php" method="post">
-<div><div class = "button">E-mail :</div><input type="text" name="name" required></div>
-<div><div class = "button">Password :</div><input type="password" name="password" required></div>
+<div><div class = "button">E-mel :</div><input type="text" name="name" required></div>
+<div><div class = "button">Katalaluan :</div><input type="password" name="password" required></div>
 <button type="submit" class = "button">log masuk</button>
 <p><a href="register.php">tak ada akaun? daftar sini</a></p>
 </form>

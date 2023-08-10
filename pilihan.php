@@ -1,6 +1,13 @@
 <?php 
+require('print.php');
 require('connect.php');
 require('upbar.php');
+if($_SESSION["aras"] != "pengguna"){
+  echo"
+  <script>
+  history.go(-1);
+  </script>";
+}
 echo "<div class = 'block'></div>";
 $idpengguna = $_SESSION["idpengguna"];
 $getproduk = "SELECT * FROM pilihanpengguna WHERE idpengguna = '$idpengguna'";
@@ -26,49 +33,50 @@ $result1 = $con -> query($search1);
   $harga = "RM" . $harga;
   $forimage = "2";
   echo "
-<table onclick = 'selecttable(this.id)' id = '$idproduk'> 
-<td colspan = $forimage ><img src = $gambar></td>
-<tr>
- <td>namaproduk</td>
- <th>$namaproduk</th>
- </tr>
- <tr>
- <td>jenama</td>
- <th>$jenama</th>
- </tr>
- <tr>
- <td>detail</td>
- <th>$detail</th>
-</tr>
-<tr>
- <td>harga</td>
- <th>$harga</th>
- </tr>
-</table>
-";
+  <table id = '$idproduk' onmouseout = 'diselect()' onmouseover = 'selecttable(this.id)'> 
+  <td colspan = $forimage ><img src = $gambar></td>
+  <tr>
+    <td>namaproduk</td>
+    <th>$namaproduk</th>
+    </tr>
+    <tr>
+    <td>jenama</td>
+    <th>$jenama</th>
+    </tr>
+    <tr>
+    <td>detail</td>
+    <th>$detail</th>
+  </tr>
+  <tr>
+    <td>harga</td>
+    <th>$harga</th>
+    </tr>
+    <td colspan = $forimage>
+    <button type = 'button' class = 'padambutton' onclick= 'remove()'>padam</button>
+    </td>
+  </table>
+   ";
 }
 $row = $result -> fetch_assoc();
   }
 }else{
-    echo"<p>no produk yet</p>";
+    echo"<p>masih tak ada produk</p>";
 }
 ?>
 <style>
-  .searchbutton {
-    float : left;
+  .padambutton{
   transition-duration: 0.4s;
-  height :50px;
-  width : auto ;
+  height :20px;
   background-color: #333333; 
   color: white; 
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size : 15px ;
   text-align: center;
   border: 2px solid black;
-  -ms-transform: translate();
 }
 
-.searchbutton:hover {
+
+.padambutton:hover {
   transition-duration: 0.4s;
   background-color: white;
   color : #333333 ;
@@ -79,15 +87,6 @@ $row = $result -> fetch_assoc();
     color : #333333;
   text-align: center;
   }
-    table {
-  border-collapse: collapse;
-  width: 25%;
-  height: 300px;
-  font-family: "Lucida Console", "Courier New", monospace;
-  border : 5px solid #333333 ;
-  float : left ;
-}
-
 
 td img{
    display: block;
@@ -104,7 +103,20 @@ td img{
   height : 160px ;
 }
 
-th, td {
+
+table {
+  border-collapse: collapse;
+  width: 25%;
+  height: 300px;
+  
+  border : 5px solid #333333 ;
+  float : left ;
+}
+
+
+
+th,td {
+  height : 49px;
   text-align: left;
   padding: 8px;
   border : 1px solid black ;
@@ -117,17 +129,16 @@ th, td {
         top : 101px;
         color : white ;
         width : 100%;
-        height : 50px;
+        height:53px ;
         text-align : center;
         background-color : #333333 ;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
     }
     </style>
  <form  action = "removepilih.php" id = "userform" style = "display : none" method = "POST">
         <input id = "idproduk"  name = "idproduk" type = "text">
     </form>
-    <div class = "box">
-    <button type = "button" class = "searchbutton" onclick= "remove()">Remove</button>Pilihan Pengguna</div>
+    <div class = "box">Pilihan Pengguna</div>
     <script>
       function selecttable(x){
       var table =  document.getElementsByTagName("table");
@@ -136,6 +147,13 @@ th, td {
       }
      document.getElementById(x).style.borderColor = "blue";
      document.getElementById("idproduk").value = x;
+    }
+
+    function diselect(){
+      var table =  document.getElementsByTagName("table");
+      for(i = 0; i < table.length ; i++){
+      document.getElementsByTagName("table")[i].style.borderColor = "#333333";
+      }
     }
 
     function remove(){

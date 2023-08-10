@@ -1,19 +1,19 @@
 <?php
 require('connect.php');
 $idproduk = $_POST["idproduk"];
-$idpengguna = $_SESSION["idpengguna"];
-if(empty($idproduk) ){
-    echo "<script>
-    alert('no produk selected');
-    location.replace('pilihan.php');
+if(!isset($_SERVER['POST']['redirected']) && empty($idproduk)){
+    echo"
+    <script>
+    history.go(-1);
     </script>";
-    die;
-}
+    die();
+     }
+$idpengguna = $_SESSION["idpengguna"];
 $removepilih = "DELETE FROM pilihanpengguna WHERE idproduk = '$idproduk' AND idpengguna = '$idpengguna'";
 $result = $con -> query($removepilih);
 if($result){
     echo "<script>
-    alert('pilihan deleted');
+    alert('pilihan berjaya dipadamkan');
     location.replace('pilihan.php');
     </script>";
     die;

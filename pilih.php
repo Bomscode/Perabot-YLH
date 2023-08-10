@@ -1,9 +1,16 @@
 <?php
 require('connect.php');
 $idproduk = $_POST["pilih"];
+if(!isset($_SERVER['POST']['redirected']) && empty($idproduk)){
+    echo"
+    <script>
+    history.go(-1);
+    </script>";
+    die();
+     }
 $idpengguna = $_SESSION["idpengguna"];
-if(empty($idproduk)){
-    echo"<script> alert('no produk selected');
+if($idpengguna == "admin"){
+    echo"<script> alert('admin tak boleh pilih');
     location.replace('shop.php'); 
     </script>";
     die;
@@ -15,7 +22,7 @@ for($i = 0; $i < $rowcount ; $i++){
 $row = $result -> fetch_assoc();
 $checkproduk = $row['idproduk'];
 if($checkproduk == $idproduk){
-    echo"<script> alert('produk has already been selected');
+    echo"<script> alert('produk sudah dipilih');
     location.replace('shop.php'); 
     </script>";
     die;
@@ -23,7 +30,7 @@ if($checkproduk == $idproduk){
 }
 $addpilih = "INSERT INTO pilihanpengguna  (idpengguna,idproduk)  VALUES ('$idpengguna','$idproduk')";
 $con -> query($addpilih);
-echo"<script> alert('produk added');
+echo"<script> alert('produk berjaya dipilih');
 location.replace('shop.php'); 
 </script>"; 
 ?>

@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <?php  
-    require ('print.php');
   require ('connect.php');
   require ('upbar.php');
   ?>
   </head>
   <style>
     .scrollbar {
-        left :20px;
+        left :2%;
         top: 170px;
         position : fixed;
         height : 450px;
@@ -40,7 +39,7 @@ form[name = "search"] input{
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size : 15px;
   position: fixed;
   left : 500px ;
@@ -54,7 +53,7 @@ form[name = "search"] input{
   width : auto ;
   background-color: #333333; 
   color: white; 
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size : 15px ;
   text-align: center;
   border: 2px solid black;
@@ -72,7 +71,7 @@ form[class="editform"] input{
   margin: 8px 0;
   border-radius: 4px;
   box-sizing: border-box;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size: 1em;
 }
 form[class="editform"] input[name = "what"]:hover {
@@ -87,7 +86,7 @@ form[class="editform"] input[name = "what"]:hover {
   margin: 8px 0;
   border: none;
   border-radius: 4px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
 }
 
 .editbuttondelete {
@@ -97,7 +96,7 @@ form[class="editform"] input[name = "what"]:hover {
   margin: 8px 0;
   border: none;
   border-radius: 4px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
 }
 
 .editform{
@@ -109,7 +108,7 @@ table {
   border-collapse: collapse;
   width: 100%;
   height: 300px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   border : 10px solid #333333 ;
   float : left ;
   position : static ;
@@ -136,7 +135,7 @@ th, td {
   float : left;
   height : 170px;
    width : 250px;
-  right : 366px;
+  right : 2%;
   top: 0px;
   z-index : 2;
 }
@@ -153,7 +152,7 @@ input[value="save"],input[value="delete"],img[name="plus"],div[id="save1"],div[i
   height : 75px;
   width : 75px;
   border-radius: 50%;
-  top : 45px ;
+  top : 90px ;
   left : 90px ;
   display: none;
 }
@@ -170,7 +169,7 @@ border : 2px solid black;
 height : 60px;
 width : 60px;
 position : absolute;
-left : 720px;
+left : 50%;
 top : 175px;
 content:url(./image/plus.png);
 }
@@ -192,23 +191,43 @@ select {
   border-radius: 2px;
   color: white;
   font-size: 23px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   padding-top: 2px;
   padding-bottom: 2px;
   border : 2px solid black;
   max-height: 50px;
 }
 
+.scrolltab  {
+  left : 3%;
+  position : fixed;
+  width: 640px;
+  background-color: #333333;
+  color: white;
+  font-size: 23px;
+  
+  padding-top: 6px;
+  padding-bottom: 6px;
+  text-align : center;
+}
+
     </style>
   <body onload="forid()">
     <div class= "searchbar">
-      <button class = "searchbutton" onclick = "location.href = 'produk.php'">all produk</button>
+      <button class = "searchbutton" onclick = "location.href = 'produk.php'">Senarai Produk</button>
     <form name = "search" action = "editproduk.php" method="post">
-    <input type="text" name="search" placeholder="Search..." >
+    <input type="text" name="search" placeholder="Cari..." >
 </form>
     </div>
    <div class = "scrollbar">
+    <div class = "scrolltab" >Pilih Produk untuk kemaskini</div>
     <?php
+    if($_SESSION["aras"] != "admin"){
+      echo"
+      <script>
+      history.go(-1);
+      </script>";
+    }
    $forimage = "2";   
    $search = $_POST["search"] ?? null;
     if ($search == null){
@@ -258,8 +277,9 @@ select {
        ";
   }
 } ?> </div>
-<a href = "editproduk.php"><img id = "plus"name = "plus" class = "plus" ></a>
-<form class = "editform" action = "saveproduk.php" method="post" enctype="multipart/form-data">
+<a href = "editproduk.php"><img id = "plus"name = "plus" class = "plus"></a>
+<form class = "editform" action = "saveproduk.php" method="post" enctype="multipart/form-data">  
+<div class = "editbutton" style = "width : 465px" id = "formtab"></div>
 <div class = "formpos" >
 <img class = "square" id = "produkpic" onerror = "unload()"> 
   <div class = "vertical_center" id = "hi" >
@@ -274,7 +294,7 @@ select {
 <div style = "float:left ; margin : 5px"><div class = "editbutton">jenama</div><input  id="jenama2" name="jenama" maxlength = "15" ><select id = "jenama1" name="jenama">
       </select></div>
 <div style = "float:left ; margin : 5px"><div class = "editbutton">detail</div><input  id="detail" name="detail" maxlength = "25" required></div>
-<div style = "float:left ; margin : 5px"><div class = "editbutton">harga (RM)</div><input min="1" type = "number" id="harga" name="harga" max = "9999" required></div>
+<div style = "float:left ; margin : 5px"><div class = "editbutton">harga (RM)</div><input min="1" type = "number" id="harga" name="harga" max = "9999" required></div><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
 <div style = "float:left ; margin : 5px" id = "save1"><input type="submit" class = "editbutton" name = "what" value = "save" id = "save"></div>
 <div style = "float:left ; margin : 5px" id = "delete1"><input type="submit" class = "editbuttondelete" name = "what" value = "delete" id= "delete" onclick = "return confirm('Are you sure you want to delete this item')"></div>
 <div style = "float:left ; margin : 5px"><input type="submit" class = "editbutton" name = "what" value = "addproduk" id = "addproduk"></div>
@@ -335,6 +355,7 @@ return txt.documentElement.textContent;
   document.getElementById("jenama1").disabled = false ;
   document.getElementById("save").disabled = false;
      document.getElementById("delete").disabled = false;
+     document.getElementById("formtab").innerHTML = "Edit Produk";
     }
     function another(){
        document.getElementById("form2").submit();
@@ -360,7 +381,8 @@ function forid(){
   document.getElementById("jenama1").disabled = true ;
   document.getElementById("save").disabled = true;
      document.getElementById("delete").disabled = true;
-  document.getElementById("idproduk").innerHTML = "New Produk";
+  document.getElementById("idproduk").innerHTML = "Produk Baharu";
+  document.getElementById("formtab").innerHTML = "Tambah Produk";
 }
 
     </script>

@@ -25,7 +25,7 @@ $_SESSION["aras"] = null;
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
 }
 
 .button[type="submit"]:hover {
@@ -54,9 +54,9 @@ a:hover{
 <body>
 
 <form class = "vertical-center" action="check1.php" method="post">
-<div><div class = "button">Name :</div><input type="text" name="name" maxlength="25" required><br></div>
-<div><div class = "button">E-mail :</div> <input type="email" name="email" minlength = "8" maxlength="25" required><br></div>
-<div><div class = "button">Password :</div><input type="password" name="password" minlength = "10" maxlength="25" required><br></div>
+<div><div class = "button">Nama :</div><input type="text" name="name" maxlength="25" required><br></div>
+<div><div class = "button">E-mel :</div> <input type="email" name="email" minlength = "8" maxlength="25" required><br></div>
+<div><div class = "button">Katalaluan :</div><input type="password" name="password" minlength = "8" maxlength="25" required><br></div>
 <button type="submit" class = "button">daftar</button>
 <p><a href="signin.php">dah ada akaun? log masuk</a></p>
 </form>

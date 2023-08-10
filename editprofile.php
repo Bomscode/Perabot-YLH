@@ -54,7 +54,7 @@ input[type='file'] {
   margin: 8px 0;
   border: none;
   border-radius: 4px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
 }
 
 .editbuttondelete {
@@ -65,7 +65,7 @@ input[type='file'] {
   padding: 14px 20px;
   border: none;
   border-radius: 4px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
 }
 
 input[name="idpengguna"],input[id="aras1"]{
@@ -78,7 +78,7 @@ select {
   border-radius: 2px;
   color: white;
   font-size: 25px;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   padding-top: 2px;
   padding-bottom: 2px;
   border : 2px solid black;
@@ -103,13 +103,19 @@ form[class="editform"] input {
   margin: 8px 0;
   border-radius: 4px;
   box-sizing: border-box;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size: 1em;
 }
 </style>
 <?php
 require('connect.php');
 require('upbar.php');
+if($_SESSION["aras"] != "admin"){
+  echo"
+  <script>
+  history.go(-1);
+  </script>";
+}
 $idpengguna = $_POST["idpengguna"];
 $getimage = "SELECT * FROM pengguna WHERE idpengguna = '$idpengguna'";
 $result = $con -> query($getimage);
@@ -133,18 +139,10 @@ $idpengguna = htmlentities($row2['idpengguna']);
 $namapengguna = htmlentities($row2['namapengguna']);
 $katalaluan = htmlentities($row2['katalaluan']);
 $aras = $row2['aras'];
-if(empty($idpengguna)){
-  echo"
-  <script>
-  alert('no user selected');
-  location.replace('edituser.php');
-  </script>";
-  die;
-}
 if($aras == "pengguna"){
-  $aras2 = "pekerja";
+  $aras2 = "admin";
 }
-if($aras == "pekerja"){
+if($aras == "admin"){
   $aras2 = "pengguna";
 }
 if ($_SESSION["aras"] == "pengguna"){
@@ -162,11 +160,11 @@ if ($_SESSION["aras"] == "pengguna"){
         <div class = 'editbutton'>nama pengguna</div><input name='namapengguna' maxlength='25' value = '$namapengguna' required>
         <div class = 'editbutton'>katalaluan</div><input name='katalaluan' minlength = '8' maxlength='25' value = '$katalaluan' required>  
         <div class = 'editbutton'>aras : pengguna</div>
-        <input type='submit' class = 'editbutton' name = 'what' value = 'save'>
-        <input type='submit' class = 'editbuttondelete' name = 'what' value = 'delete' onclick = 'return confirm('Are you sure you want to delete account?')'>
+        <input type='submit' class = 'editbutton' name = 'what' value = 'simpan'>
+        <input type='submit' class = 'editbuttondelete' name = 'what' value = 'hapus' onclick = 'return confirm('Are you sure you want to delete account?')'>
       </form>
     ";
-}else if ($_SESSION["aras"] == "pekerja"){
+}else if ($_SESSION["aras"] == "admin"){
     {
       echo"
         <form class = 'editform' action = 'saveuser.php' method='post' enctype='multipart/form-data'>
@@ -181,8 +179,8 @@ if ($_SESSION["aras"] == "pengguna"){
         <div class = 'editbutton'>nama pengguna</div><input name='namapengguna' maxlength='25' value = '$namapengguna' required>
         <div class = 'editbutton'>katalaluan</div><input name='katalaluan' minlength = '8' maxlength='25'  value = '$katalaluan' required> 
        <div class = 'editbutton'>aras</div><select style = 'display : block' name='aras' value = '$aras'><option selected>$aras</option><option>$aras2</option></select>
-       <input type='submit' class = 'editbutton' name = 'what' value = 'save'>
-       <input type='submit' class = 'editbuttondelete' name = 'what' value = 'delete' onclick = 'return confirm('Are you sure you want to delete account?')'>
+       <input type='submit' class = 'editbutton' name = 'what' value = 'simpan'>
+       <input type='submit' class = 'editbuttondelete' name = 'what' value = 'hapus' onclick = 'return confirm('Are you sure you want to delete account?')'>
 </form>
     ";
     }

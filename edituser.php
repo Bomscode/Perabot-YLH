@@ -1,7 +1,12 @@
 <?php 
-require ('print.php');
 require ('connect.php') ;
 require ('upbar.php');
+if($_SESSION["aras"] != "admin"){
+  echo"
+      <script>
+      history.go(-1);
+      </script>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,10 +23,10 @@ require ('upbar.php');
   width : auto ;
   background-color: #333333; 
   color: white; 
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   font-size : 15px ;
   border: 2px solid black;
-  left : 0px;
+  right : 0%;
   text-align: center;
 }
 
@@ -34,7 +39,7 @@ table {
   table-layout: fixed;
   width : 100%;
   border-collapse: collapse;
-  font-family: "Lucida Console", "Courier New", monospace;
+  
   border : 4px solid black ;
 }
 
@@ -66,11 +71,11 @@ th{
     .square{
         opacity : 0;
         width : 100%;
-        height : 92px;
+        height : 102px;
     }
     .title{
         background-color : #333333;
-        font-family: "Lucida Console", "Courier New", monospace;
+        
         color : white ;
         font-size : 30px;
     }
@@ -84,11 +89,13 @@ th{
         <input id = "idpengguna"  name = "idpengguna" type = "text">
     </form>
     <div class = "square"></div>
+    <div class = "title">
+      Kemaskini Pengguna
+          <button class = 'buttons' onclick = "trigger1()">import</button>
+        </div>
     <div class = "scrollbar">
         <div class = "title">
         Pengguna
-          <button class = 'buttons' onclick = "trigger1()">import</button>
-          <button class = 'buttons' onclick = "submitform()">edit user</button>
         </div>
         
         <?php
@@ -102,11 +109,12 @@ $namapengguna = htmlentities($row['namapengguna']);
 $katalaluan = htmlentities($row['katalaluan']);
     $aras = $row['aras'];
     echo "
-    <table  onclick = 'selecttable(this.id)' id = $idpengguna>
+    <table onmouseout = 'diselect()' onmouseover = 'selecttable(this.id)' id = $idpengguna>
       <th>$idpengguna</th>
       <th>$namapengguna</th>
       <th>$katalaluan</th>
       <th>$aras</th>
+      <th><button class = 'buttons' onclick = 'submitform()'>edit pengguna</button></th>
     </table>
      ";
 }
@@ -114,9 +122,9 @@ $katalaluan = htmlentities($row['katalaluan']);
 ?>
     </div>
     <div class = "scrollbar"> 
-        <div class = "title">Pekerja</div>
+        <div class = "title">admin</div>
         <?php
-        $getpengguna = "SELECT * FROM pengguna WHERE aras = 'pekerja'";
+        $getpengguna = "SELECT * FROM pengguna WHERE aras = 'admin'";
         $result = $con -> query($getpengguna);
         if ($result -> num_rows > 0){
             for($i = 1;$i <= mysqli_num_rows($result); $i++){
@@ -126,12 +134,13 @@ $katalaluan = htmlentities($row['katalaluan']);
         $katalaluan = htmlentities($row['katalaluan']);
             $aras = $row['aras'];
             echo "
-            <table  onclick = 'selecttable(this.id)' id = $idpengguna>
-              <th>$idpengguna</th>
-              <th>$namapengguna</th>
-              <th>$katalaluan</th>
-              <th>$aras</th>
-            </table>
+            <table onmouseout = 'diselect()' onmouseover = 'selecttable(this.id)' id = $idpengguna>
+      <th>$idpengguna</th>
+      <th>$namapengguna</th>
+      <th>$katalaluan</th>
+      <th>$aras</th>
+      <th><button class = 'buttons' onclick = 'submitform()'>edit pengguna</button></th>
+    </table>
              ";
         }
 }
@@ -157,6 +166,13 @@ $katalaluan = htmlentities($row['katalaluan']);
     }
     function trigger1(){
     document.getElementById('import1').click();
+    }
+
+    function diselect(){
+      var table =  document.getElementsByTagName("table");
+      for(i = 0; i < table.length ; i++){
+      document.getElementsByTagName("table")[i].style.borderColor = "#333333";
+      }
     }
     </script>
 </html>

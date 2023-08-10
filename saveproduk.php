@@ -1,5 +1,12 @@
 <?php
 require ('connect.php');
+if(!isset($_SERVER['POST']['redirected']) && !isset($_POST["what"])){
+  echo"
+  <script>
+  history.go(-1);
+  </script>";
+  die();
+   }
 if($_POST["what"] == "save"){
   $idproduk = $con -> real_escape_string($_POST['idprodukval']);
       if($idproduk == null){

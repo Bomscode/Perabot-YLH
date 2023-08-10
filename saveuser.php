@@ -1,27 +1,33 @@
 <?php
 require ('connect.php');
-if($_POST["what"] == "save"){
+if(!isset($_SERVER['POST']['redirected']) && !isset($_POST["what"])){
+  echo"
+  <script>
+  history.go(-1);
+  </script>";
+  die();
+   }
+if($_POST["what"] == "simpan"){
       
   $idpengguna = $con -> real_escape_string($_POST['idpengguna']);
       $namapengguna = $con -> real_escape_string($_POST['namapengguna']);
       $katalaluan = $con -> real_escape_string($_POST['katalaluan']);
       $aras = $con -> real_escape_string($_POST['aras']);
-      
+      if($idpengguna == $_SESSION["idpengguna"]){
+        if($_SESSION["aras"] == "admin"){
+          if($aras != $_SESSION["aras"]){
+             echo "<script>
+             window.location = 'edituser.php';
+             alert('Admin tidak boleh edit aras diri');
+             </script>";
+             die;
+             }}}
       if($idpengguna == $_SESSION["idpengguna"]){
         $_SESSION["namapengguna"] = $namapengguna;
         $_SESSION["katalaluan"] = $katalaluan;
         $_SESSION["aras"] = $aras;
       }
-      $file = $_FILES['madd']['name'];     
-      if($idpengguna == $_SESSION["idpengguna"]){
-      if($_SESSION["aras"] == "pekerja"){
-        if($aras != $_SESSION["aras"]){
-           echo "<script>
-           window.location = 'edituser.php';
-           alert('You cannot change your aras as an admin');
-           </script>";
-           die;
-           }}}
+      $file = $_FILES['madd']['name'];    
       $updateinfo = "UPDATE pengguna SET namapengguna = '$namapengguna' , katalaluan = '$katalaluan' , aras = '$aras'  WHERE idpengguna = '$idpengguna'";
       $con -> query($updateinfo);
 if(!empty($file)){
@@ -64,7 +70,7 @@ $picture = $row['picture'];
   $_FILES = null;
   !empty($_POST);
 }
-if ($_SESSION["aras"] == "pekerja"){
+if ($_SESSION["aras"] == "admin"){
 echo "<script>
 window.location = 'edituser.php'
 alert('User updated');
@@ -76,9 +82,9 @@ alert('User updated');
 </script>";
 } 
 }
-if($_POST["what"] == "delete"){
+if($_POST["what"] == "hapus"){
      $idpengguna = $_POST["idpengguna"];
-     if($_SESSION["aras"] == "pekerja"){
+     if($_SESSION["aras"] == "admin"){
      if($idpengguna == $_SESSION["idpengguna"]){
         echo "<script>
         alert('You cannot delete yourself as an admin');
@@ -95,7 +101,7 @@ window.location = 'edituser.php';
      $con -> query($delete);
      $delete = "DELETE FROM pilihanpengguna WHERE idpengguna = '$idpengguna'";
      $con -> query($delete);
-     if ($_SESSION["aras"] == "pekerja"){
+     if ($_SESSION["aras"] == "admin"){
    echo "<script>
    window.location = 'edituser.php'
    alert('User deleted');

@@ -3,6 +3,13 @@ require ('connect.php');
 $name = $con -> real_escape_string($_POST['name']);
 $email = $con -> real_escape_string($_POST['email']);
 $password = $con -> real_escape_string($_POST['password']);
+if(!isset($_SERVER['POST']['redirected']) && empty($name)){
+    echo"
+    <script>
+    history.go(-1);
+    </script>";
+    die();
+     }
 if(filter_var($email, FILTER_VALIDATE_EMAIL)){
 $signcheck = "SELECT * FROM pengguna WHERE idpengguna = '$name' OR namapengguna = '$name' ";
 $result1 = $con -> query($signcheck);
