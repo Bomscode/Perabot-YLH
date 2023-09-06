@@ -110,7 +110,7 @@ if($_SESSION["aras"] == null) {
 }else if ($_SESSION["aras"] == "pengguna" || $_SESSION["aras"] == "admin" ){
   echo'
   <div class="upbar">
-    <img src="./image/icon.png" alt="My lovely Home" width="360" height="101">
+    <img src="./image/icon.png" onclick = "mainmenu()" alt="My lovely Home" width="360" height="101">
     <div class="align">
       <button type="button" class="barbutton" onclick = "shop()" >Kedai</button>
       <button type="button" class="barbutton" onclick = "mainmenu()" >Menu</button>
@@ -126,7 +126,7 @@ if($_SESSION["aras"] == null) {
   $kunci = $_SESSION["idpengguna"];
 if(isset($_POST["font"])){
   $font = $_POST["font"];
-  $insert = "UPDATE pengguna SET font = '$font' WHERE idpengguna = '$kunci'";
+  $insert = "UPDATE pengguna SET fon = '$font' WHERE idpengguna = '$kunci'";
   $con ->query($insert);
 }
 if(isset($_POST["bg"])){
@@ -143,7 +143,7 @@ if(isset($_POST["opacity"])){
 $getbg = "SELECT * FROM pengguna WHERE idpengguna= '$kunci'";
 $result = $con -> query($getbg);
 $row = $result -> fetch_assoc();
-$font = $row['font'];
+$font = $row['fon'];
 $gotbg = $row['latar'];
 $opacity = $row['keterlihatan'];
 if($gotbg != null){

@@ -34,7 +34,7 @@ if(!empty($file)){
 $getimage = "SELECT * FROM pengguna WHERE idpengguna = '$idpengguna'";
 $result = $con -> query($getimage);
 $row = $result -> fetch_assoc();
-$picture = $row['picture']; 
+$picture = $row['gambar']; 
   if ($picture != null){
     if(file_exists($picture)){
     unlink($picture);
@@ -43,12 +43,12 @@ $picture = $row['picture'];
 
   $file = './pfpimage/' . basename($_FILES['madd']['name']);
   $file = str_replace(" ","_",$file); 
-  $scanimage = "SELECT * FROM pengguna WHERE picture = '$file' AND NOT idpengguna = '$idpengguna'";
+  $scanimage = "SELECT * FROM pengguna WHERE gambar = '$file' AND NOT idpengguna = '$idpengguna'";
   $result1 = $con -> query($scanimage);
   if($result1 -> num_rows == 0){
     move_uploaded_file($_FILES['madd']['tmp_name'], $file);
     $file = str_replace(" ","_",$file); 
-    $image = "UPDATE pengguna SET picture = '$file' WHERE idpengguna = '$idpengguna'";
+    $image = "UPDATE pengguna SET gambar = '$file' WHERE idpengguna = '$idpengguna'";
     $con -> query($image);
   }
   $no = 0;
@@ -57,13 +57,13 @@ $picture = $row['picture'];
     $file = "./pfpimage/" . basename($_FILES['madd']['name'],".png");
     $file = str_replace(" ","_",$file);
     $file = $file . "({$no}).png";
-    $image = "UPDATE pengguna SET picture = '$file' WHERE idpengguna = '$idpengguna'";
+    $image = "UPDATE pengguna SET gambar = '$file' WHERE idpengguna = '$idpengguna'";
     $con -> query($image);
-    $scanimage = "SELECT * FROM pengguna WHERE picture = '$file' AND NOT idpengguna = '$idpengguna'";
+    $scanimage = "SELECT * FROM pengguna WHERE gambar = '$file' AND NOT idpengguna = '$idpengguna'";
     $result1 = $con -> query($scanimage);
   }
   $file = str_replace(" ","_",$file);
-  $updateinfo2 = "UPDATE pengguna SET picture = '$file' WHERE idpengguna = '$idpengguna'";
+  $updateinfo2 = "UPDATE pengguna SET gambar = '$file' WHERE idpengguna = '$idpengguna'";
   $con -> query($updateinfo2);
   move_uploaded_file($_FILES['madd']['tmp_name'], $file);
   $_FILES = array();
@@ -73,12 +73,12 @@ $picture = $row['picture'];
 if ($_SESSION["aras"] == "admin"){
 echo "<script>
 window.location = 'edituser.php'
-alert('User updated');
+alert('Pengguna berjaya dikemaskini');
 </script>";
 }else if($_SESSION["aras"] == "pengguna"){
     echo "<script>
 window.location = 'profile.php'
-alert('User updated');
+alert('Pengguna berjaya dikemaskini');
 </script>";
 } 
 }
@@ -87,7 +87,7 @@ if($_POST["what"] == "hapus"){
      if($_SESSION["aras"] == "admin"){
      if($idpengguna == $_SESSION["idpengguna"]){
         echo "<script>
-        alert('You cannot delete yourself as an admin');
+        alert('Admin tidak boleh hapus akaun diri');
 window.location = 'edituser.php';
         </script>";
         die;
@@ -95,7 +95,7 @@ window.location = 'edituser.php';
     $scanimage = "SELECT * FROM pengguna WHERE idpengguna = '$idpengguna'";
      $result1 = $con -> query($scanimage);
      $row = $result1 -> fetch_assoc();
-     $picture = $row['picture'];
+     $picture = $row['gambar'];
      unlink($picture);
      $delete = "DELETE FROM pengguna WHERE idpengguna = '$idpengguna'";
      $con -> query($delete);

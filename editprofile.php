@@ -110,17 +110,11 @@ form[class="editform"] input {
 <?php
 require('connect.php');
 require('upbar.php');
-if($_SESSION["aras"] != "admin"){
-  echo"
-  <script>
-  history.go(-1);
-  </script>";
-}
 $idpengguna = $_POST["idpengguna"];
 $getimage = "SELECT * FROM pengguna WHERE idpengguna = '$idpengguna'";
 $result = $con -> query($getimage);
 $row = $result -> fetch_assoc();
-$picture = $row['picture']; 
+$picture = $row['gambar']; 
 $picname = "ha";
   echo "<img src = '$picture' id = 'userpic' onerror = 'unload()' name = '$picname' alt = '$picture'>";
   

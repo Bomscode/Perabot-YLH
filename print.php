@@ -1,12 +1,4 @@
-<?php
-if(!isset($_SERVER['POST']['redirected'])){
-    echo"
-    <script>
-    history.go(-1);
-    </script>";
-    die();
-     }
-     ?>
+
 <style>
     @media print{
   div{

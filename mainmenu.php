@@ -14,7 +14,7 @@ require ('upbar.php');
   <div class = "bg"> 
   <img src = "./image/trolley.png" style = "float:left" object-fit = "contain" width = "300px" height = "300px">
   <h1 class = "textes">Kedai Perabot Terbaik di dunia</h1><br><br><br><br><br>
-  <button class = "searchbutton" onclick ="location.href = 'shop.php'"location.>Shop Terus</button><br><br>
+  <button class = "searchbutton" onclick ="location.href = 'shop.php'">Shop Terus</button><br><br>
   <p class = "textes">discount setiap minggu , marilah gunakan website ini</p>
   <img src = "./image/discount.png" style = "position : absolute; right : 50px; top : 0px;" object-fit = "contain" >
   </div>

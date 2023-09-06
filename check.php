@@ -19,6 +19,9 @@ if ($result -> num_rows == 0){
      </script>";
      die;
 }else{
+    echo "<script>
+     window.location = 'mainmenu.php'
+     </script>";
     $_SESSION["idpengguna"] = $row['idpengguna'];
     $_SESSION["namapengguna"] = $row['namapengguna'];
     $_SESSION["katalaluan"] = $row['katalaluan'];

@@ -36,7 +36,7 @@ select {
 .buttons{
   margin : 5px;
   color : white;
-  font-size : 20px ;
+  font-size : 40px ;
   background-color : #333333;
 }
 
@@ -103,8 +103,12 @@ input[type='file'] {
   display : block;
 }
 
-.custom{
+.buttons[name="custo"]:hover {
+  background-color : white;
+  color : #333333;
+}
 
+.custom{
   font-size : 30px;
   color : white;
   text-align : center;
@@ -112,8 +116,8 @@ input[type='file'] {
   background-color : #333333;
   border : 5px solid black;
   width : 50%;
-  height : 75%;
-  top : 20%;
+  height : 80%;
+  top : 18%;
   right : 1%;
 }
 </style>
@@ -121,18 +125,18 @@ input[type='file'] {
     <div class = "filterbutton">
     <div class = "buttons">Fon</div>
       <select id = "font" oninput = "tempor2(this.value)" class = "select" name="font">
-        <option>Ariel</option>
-        <option>Times New Roman</option>
-         <option>Fantasy</option>
-         <option>Verdana</option>
-         <option>Tahoma</option>
-         <option>Brush Script MT</option>
-         <option>Garamond</option>
-         <option>Georgia</option>
-         <option>Courier New</option>
+        <option style = "font-family : Ariel">Ariel</option>
+        <option style = "font-family : Times New Roman">Times New Roman</option>
+         <option style = "font-family : Fantasy">Fantasy</option>
+         <option style = "font-family : Verdana">Verdana</option>
+         <option style = "font-family : Tahoma">Tahoma</option>
+         <option style = "font-family : Brush Script MT">Brush Script MT</option>
+         <option style =" font-family : Garamond" >Garamond</option>
+         <option style =" font-family : Georgia">Georgia</option>
+         <option style =" font-family : Courier New">Courier New</option>
       </select>
     </div>
-    <div id = "tempfont" style = "margin-bottom : 5px;">Sample</div>
+    <div id = "tempfont" style = "text-decoration-line : underline;margin-bottom : 10px">Sample</div>
     <div class = "buttons">Latar</div>
     <input name = "opacity" type = "range" id = "opa" oninput = "changeopa(this.value)">
       <select id = "bgimg" oninput = "tempor(this.value)" style = "width : 300px" class = "select" name="bg">
@@ -149,17 +153,17 @@ input[type='file'] {
         <option>ModernGray</option>
         <option>Restaurant</option>
       </select>
-      <img id = "tempbg" src = "./bgimage/" style = "margin-top : 5%; height : 200px ; width : 300px ; border : 1px solid black; object-fit : fill;">
+      <img id = "tempbg" src = "./bgimage/" style = "margin-top : 1%; height : 200px ; width : 300px ; border : 1px solid black; object-fit : fill;">
     </div>
-    <button type = submit class = "buttons">save</button>
+    <button type = submit class = "buttons" name = "custo" style = "border : 4px solid black">simpan</button>
     </form>
  <?php
 $kunci = $_SESSION["idpengguna"];
 $getimage = "SELECT * FROM pengguna WHERE idpengguna = '$kunci'";
 $result = $con -> query($getimage);
 $row = $result -> fetch_assoc();
-$picture = $row['picture']; 
-$font = $row['font'];
+$picture = $row['gambar']; 
+$font = $row['fon'];
 $bg = $row['latar'];
 $opa = $row['keterlihatan'];
 $idpengguna = htmlentities($row['idpengguna']);
